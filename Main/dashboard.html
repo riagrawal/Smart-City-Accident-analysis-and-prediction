@@ -1,0 +1,2191 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+    <script src="assets/js/jquery-1.11.1.js"></script>
+    <!-- BOOTSTRAP SCRIPTS  -->
+    <script src="assets/js/bootstrap.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!--[if IE]>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <![endif]-->
+    <title>Smart City Accident Analysis and Prediction</title>
+    <!-- BOOTSTRAP CORE STYLE  -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONT AWESOME ICONS  -->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- CUSTOM STYLE  -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+     <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body background="/Users/Rii/Documents/295b/new template/p2.gif"> 
+    <!-- LOGO HEADER END-->
+    <section class="menu-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="navbar-collapse collapse ">
+                        <ul id="menu-top" class="nav navbar-nav navbar-right">
+                            <li><a  href="index.html">Home</a></li>
+                            <li><a href="analytics.html">Yearly Analytics</a></li>
+                            <li><a href="predict.html">Prediction</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                        
+                        <div class="panel-body" style="width:100%;height:350px;">
+                             <div id="tree" style="width:100%;height:330px;"></div>
+                        </div>
+                        </div>  
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="panel panel-default">
+                        
+                        <div class="panel-body" style="width:100%;height:350px;">
+                            <div id="bubble" style="width:100%;height:330px;"></div>
+                        </div>
+                        </div>
+                    </div>
+
+            </div> 
+           
+            
+            <div class="row">
+                    <div class="col-md-6">
+
+                        <div class="panel panel-default">
+                        
+                        <div class="panel-body" style="width:100%;height:350px;">
+                             <div id="donut" style="width:100%;height:330px;"></div>
+                        </div>
+                        </div>  
+                          
+                    </div>
+                     <div class="col-md-6">
+                    
+                        <div class="panel panel-default">
+                        
+                        <div class="panel-body" style="width:100%;height:350px;">
+                             <div id="combi" style="width:100%;height:330px;"></div>
+                        </div>
+                        </div>   
+                    </div>
+                    
+            </div> 
+            <div class="row">
+                    <div class="col-md-6">
+
+                        <div class="panel panel-default">
+                        
+                        <div class="panel-body" style="width:100%;height:350px;">
+                             <div id="weather" style="width:100px;height:330px;"></div>
+                        </div>
+                        </div>  
+                          
+                    </div>
+                     <div class="col-md-6">
+                    
+                        <div class="panel panel-default">
+                        
+                        <div class="panel-body" style="width:100%;height:350px;">
+                             <div id="gender" style="width:100%;height:330px;"></div>
+                        </div>
+                        </div>   
+                    </div>
+                    
+            </div> 
+
+        </div>
+    </div>    
+    
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    A<sup>3</sup>P : Accident Analysis and Prediction  &copy; 2016  </a>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/treemap.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+     <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script>
+    $(function () {
+    var data = {
+            'South-East Asia': {
+                'Sri Lanka': {
+                    'Communicable & other Group I': '75.5',
+                    'Injuries': '89.0',
+                    'Noncommunicable diseases': '501.2'
+                },
+                'Bangladesh': {
+                    'Noncommunicable diseases': '548.9',
+                    'Injuries': '64.0',
+                    'Communicable & other Group I': '234.6'
+                },
+                'Myanmar': {
+                    'Communicable & other Group I': '316.4',
+                    'Injuries': '102.0',
+                    'Noncommunicable diseases': '708.7'
+                },
+                'Maldives': {
+                    'Injuries': '35.0',
+                    'Noncommunicable diseases': '487.2',
+                    'Communicable & other Group I': '59.2'
+                },
+                'Democratic People\'s Republic of Korea': {
+                    'Injuries': '91.9',
+                    'Noncommunicable diseases': '751.4',
+                    'Communicable & other Group I': '117.3'
+                },
+                'Bhutan': {
+                    'Injuries': '142.2',
+                    'Noncommunicable diseases': '572.8',
+                    'Communicable & other Group I': '186.9'
+                },
+                'Thailand': {
+                    'Injuries': '72.8',
+                    'Communicable & other Group I': '123.3',
+                    'Noncommunicable diseases': '449.1'
+                },
+                'Nepal': {
+                    'Noncommunicable diseases': '678.1',
+                    'Injuries': '88.7',
+                    'Communicable & other Group I': '251.8'
+                },
+                'Timor-Leste': {
+                    'Injuries': '69.2',
+                    'Noncommunicable diseases': '670.5',
+                    'Communicable & other Group I': '343.5'
+                },
+                'India': {
+                    'Communicable & other Group I': '253.0',
+                    'Injuries': '115.9',
+                    'Noncommunicable diseases': '682.3'
+                },
+                'Indonesia': {
+                    'Injuries': '49.3',
+                    'Noncommunicable diseases': '680.1',
+                    'Communicable & other Group I': '162.4'
+                }
+            },
+            'Europe': {
+                'Hungary': {
+                    'Communicable & other Group I': '16.8',
+                    'Noncommunicable diseases': '602.8',
+                    'Injuries': '44.3'
+                },
+                'Poland': {
+                    'Communicable & other Group I': '22.6',
+                    'Noncommunicable diseases': '494.5',
+                    'Injuries': '48.9'
+                },
+                'Israel': {
+                    'Communicable & other Group I': '31.2',
+                    'Noncommunicable diseases': '311.2',
+                    'Injuries': '20.8'
+                },
+                'France': {
+                    'Communicable & other Group I': '21.4',
+                    'Noncommunicable diseases': '313.2',
+                    'Injuries': '34.6'
+                },
+                'Turkey': {
+                    'Injuries': '39.1',
+                    'Communicable & other Group I': '43.9',
+                    'Noncommunicable diseases': '555.2'
+                },
+                'Kyrgyzstan': {
+                    'Communicable & other Group I': '65.8',
+                    'Injuries': '65.1',
+                    'Noncommunicable diseases': '835.4'
+                },
+                'Croatia': {
+                    'Communicable & other Group I': '12.2',
+                    'Noncommunicable diseases': '495.8',
+                    'Injuries': '40.1'
+                },
+                'Portugal': {
+                    'Injuries': '25.2',
+                    'Communicable & other Group I': '39.9',
+                    'Noncommunicable diseases': '343.3'
+                },
+                'Greece': {
+                    'Injuries': '26.5',
+                    'Noncommunicable diseases': '365.0',
+                    'Communicable & other Group I': '24.1'
+                },
+                'Italy': {
+                    'Injuries': '20.1',
+                    'Communicable & other Group I': '15.5',
+                    'Noncommunicable diseases': '303.6'
+                },
+                'Belgium': {
+                    'Communicable & other Group I': '27.8',
+                    'Injuries': '38.9',
+                    'Noncommunicable diseases': '356.8'
+                },
+                'Lithuania': {
+                    'Noncommunicable diseases': '580.6',
+                    'Communicable & other Group I': '25.5',
+                    'Injuries': '76.4'
+                },
+                'Uzbekistan': {
+                    'Communicable & other Group I': '85.8',
+                    'Injuries': '47.4',
+                    'Noncommunicable diseases': '810.9'
+                },
+                'Serbia': {
+                    'Communicable & other Group I': '19.4',
+                    'Injuries': '32.0',
+                    'Noncommunicable diseases': '657.7'
+                },
+                'Austria': {
+                    'Noncommunicable diseases': '359.5',
+                    'Injuries': '30.6',
+                    'Communicable & other Group I': '12.6'
+                },
+                'Bosnia and Herzegovina': {
+                    'Injuries': '42.4',
+                    'Noncommunicable diseases': '512.5',
+                    'Communicable & other Group I': '20.0'
+                },
+                'Slovakia': {
+                    'Injuries': '39.1',
+                    'Communicable & other Group I': '35.3',
+                    'Noncommunicable diseases': '532.5'
+                },
+                'The former Yugoslav republic of Macedonia': {
+                    'Injuries': '24.0',
+                    'Communicable & other Group I': '16.9',
+                    'Noncommunicable diseases': '636.5'
+                },
+                'Sweden': {
+                    'Communicable & other Group I': '19.3',
+                    'Noncommunicable diseases': '333.5',
+                    'Injuries': '26.1'
+                },
+                'Russian Federation': {
+                    'Noncommunicable diseases': '790.3',
+                    'Communicable & other Group I': '73.8',
+                    'Injuries': '102.8'
+                },
+                'Republic of Moldova': {
+                    'Noncommunicable diseases': '787.6',
+                    'Injuries': '75.7',
+                    'Communicable & other Group I': '44.5'
+                },
+                'Ireland': {
+                    'Injuries': '31.8',
+                    'Communicable & other Group I': '21.5',
+                    'Noncommunicable diseases': '343.9'
+                },
+                'Estonia': {
+                    'Injuries': '47.0',
+                    'Communicable & other Group I': '18.5',
+                    'Noncommunicable diseases': '510.7'
+                },
+                'Cyprus': {
+                    'Noncommunicable diseases': '333.0',
+                    'Injuries': '26.6',
+                    'Communicable & other Group I': '16.2'
+                },
+                'Kazakhstan': {
+                    'Noncommunicable diseases': '949.7',
+                    'Injuries': '101.6',
+                    'Communicable & other Group I': '55.3'
+                },
+                'Netherlands': {
+                    'Noncommunicable diseases': '355.2',
+                    'Injuries': '22.3',
+                    'Communicable & other Group I': '25.5'
+                },
+                'Finland': {
+                    'Noncommunicable diseases': '366.6',
+                    'Injuries': '38.7',
+                    'Communicable & other Group I': '9.0'
+                },
+                'Romania': {
+                    'Noncommunicable diseases': '612.2',
+                    'Injuries': '40.7',
+                    'Communicable & other Group I': '38.5'
+                },
+                'Albania': {
+                    'Noncommunicable diseases': '671.6',
+                    'Injuries': '48.0',
+                    'Communicable & other Group I': '46.5'
+                },
+                'Iceland': {
+                    'Injuries': '29.0',
+                    'Noncommunicable diseases': '311.7',
+                    'Communicable & other Group I': '14.0'
+                },
+                'Azerbaijan': {
+                    'Noncommunicable diseases': '664.3',
+                    'Injuries': '33.6',
+                    'Communicable & other Group I': '70.8'
+                },
+                'Tajikistan': {
+                    'Injuries': '51.6',
+                    'Communicable & other Group I': '147.7',
+                    'Noncommunicable diseases': '752.6'
+                },
+                'Bulgaria': {
+                    'Communicable & other Group I': '33.4',
+                    'Injuries': '36.4',
+                    'Noncommunicable diseases': '638.2'
+                },
+                'United Kingdom of Great Britain and Northern Ireland': {
+                    'Communicable & other Group I': '28.5',
+                    'Injuries': '21.5',
+                    'Noncommunicable diseases': '358.8'
+                },
+                'Spain': {
+                    'Communicable & other Group I': '19.1',
+                    'Injuries': '17.8',
+                    'Noncommunicable diseases': '323.1'
+                },
+                'Ukraine': {
+                    'Communicable & other Group I': '69.3',
+                    'Injuries': '67.3',
+                    'Noncommunicable diseases': '749.0'
+                },
+                'Norway': {
+                    'Noncommunicable diseases': '336.6',
+                    'Communicable & other Group I': '25.2',
+                    'Injuries': '25.6'
+                },
+                'Denmark': {
+                    'Injuries': '22.5',
+                    'Communicable & other Group I': '29.5',
+                    'Noncommunicable diseases': '406.1'
+                },
+                'Belarus': {
+                    'Noncommunicable diseases': '682.5',
+                    'Communicable & other Group I': '28.3',
+                    'Injuries': '91.3'
+                },
+                'Malta': {
+                    'Noncommunicable diseases': '364.5',
+                    'Injuries': '19.0',
+                    'Communicable & other Group I': '23.6'
+                },
+                'Latvia': {
+                    'Noncommunicable diseases': '623.7',
+                    'Injuries': '54.5',
+                    'Communicable & other Group I': '26.0'
+                },
+                'Turkmenistan': {
+                    'Injuries': '93.0',
+                    'Communicable & other Group I': '115.8',
+                    'Noncommunicable diseases': '1025.1'
+                },
+                'Switzerland': {
+                    'Communicable & other Group I': '14.5',
+                    'Noncommunicable diseases': '291.6',
+                    'Injuries': '25.4'
+                },
+                'Luxembourg': {
+                    'Injuries': '31.1',
+                    'Noncommunicable diseases': '317.8',
+                    'Communicable & other Group I': '20.5'
+                },
+                'Georgia': {
+                    'Injuries': '32.2',
+                    'Communicable & other Group I': '39.3',
+                    'Noncommunicable diseases': '615.2'
+                },
+                'Slovenia': {
+                    'Noncommunicable diseases': '369.2',
+                    'Communicable & other Group I': '15.4',
+                    'Injuries': '44.2'
+                },
+                'Montenegro': {
+                    'Communicable & other Group I': '18.7',
+                    'Noncommunicable diseases': '571.5',
+                    'Injuries': '41.2'
+                },
+                'Armenia': {
+                    'Noncommunicable diseases': '847.5',
+                    'Communicable & other Group I': '45.0',
+                    'Injuries': '49.2'
+                },
+                'Germany': {
+                    'Injuries': '23.0',
+                    'Communicable & other Group I': '21.6',
+                    'Noncommunicable diseases': '365.1'
+                },
+                'Czech Republic': {
+                    'Injuries': '39.1',
+                    'Noncommunicable diseases': '460.7',
+                    'Communicable & other Group I': '27.0'
+                }
+            },
+            'Africa': {
+                'Equatorial Guinea': {
+                    'Communicable & other Group I': '756.8',
+                    'Injuries': '133.6',
+                    'Noncommunicable diseases': '729.0'
+                },
+                'Madagascar': {
+                    'Noncommunicable diseases': '648.6',
+                    'Communicable & other Group I': '429.9',
+                    'Injuries': '89.0'
+                },
+                'Swaziland': {
+                    'Communicable & other Group I': '884.3',
+                    'Injuries': '119.5',
+                    'Noncommunicable diseases': '702.4'
+                },
+                'Congo': {
+                    'Noncommunicable diseases': '632.3',
+                    'Communicable & other Group I': '666.9',
+                    'Injuries': '89.0'
+                },
+                'Burkina Faso': {
+                    'Communicable & other Group I': '648.2',
+                    'Noncommunicable diseases': '784.0',
+                    'Injuries': '119.3'
+                },
+                'Guinea-Bissau': {
+                    'Communicable & other Group I': '869.8',
+                    'Noncommunicable diseases': '764.7',
+                    'Injuries': '111.6'
+                },
+                'Democratic Republic of the Congo': {
+                    'Noncommunicable diseases': '724.4',
+                    'Injuries': '137.1',
+                    'Communicable & other Group I': '920.7'
+                },
+                'Mozambique': {
+                    'Injuries': '175.3',
+                    'Noncommunicable diseases': '593.7',
+                    'Communicable & other Group I': '998.1'
+                },
+                'Central African Republic': {
+                    'Communicable & other Group I': '1212.1',
+                    'Injuries': '107.9',
+                    'Noncommunicable diseases': '550.8'
+                },
+                'United Republic of Tanzania': {
+                    'Noncommunicable diseases': '569.8',
+                    'Communicable & other Group I': '584.2',
+                    'Injuries': '129.2'
+                },
+                'Cameroon': {
+                    'Communicable & other Group I': '768.8',
+                    'Injuries': '106.0',
+                    'Noncommunicable diseases': '675.2'
+                },
+                'Togo': {
+                    'Noncommunicable diseases': '679.0',
+                    'Communicable & other Group I': '681.8',
+                    'Injuries': '93.0'
+                },
+                'Eritrea': {
+                    'Injuries': '118.7',
+                    'Communicable & other Group I': '506.0',
+                    'Noncommunicable diseases': '671.9'
+                },
+                'Namibia': {
+                    'Injuries': '76.4',
+                    'Noncommunicable diseases': '580.2',
+                    'Communicable & other Group I': '356.6'
+                },
+                'Senegal': {
+                    'Noncommunicable diseases': '558.1',
+                    'Injuries': '89.3',
+                    'Communicable & other Group I': '587.7'
+                },
+                'Chad': {
+                    'Communicable & other Group I': '1070.9',
+                    'Injuries': '114.5',
+                    'Noncommunicable diseases': '712.6'
+                },
+                'Benin': {
+                    'Injuries': '98.0',
+                    'Noncommunicable diseases': '761.5',
+                    'Communicable & other Group I': '577.3'
+                },
+                'Zimbabwe': {
+                    'Communicable & other Group I': '711.3',
+                    'Injuries': '82.5',
+                    'Noncommunicable diseases': '598.9'
+                },
+                'Rwanda': {
+                    'Noncommunicable diseases': '585.3',
+                    'Injuries': '106.3',
+                    'Communicable & other Group I': '401.7'
+                },
+                'Zambia': {
+                    'Noncommunicable diseases': '587.4',
+                    'Injuries': '156.4',
+                    'Communicable & other Group I': '764.3'
+                },
+                'Mali': {
+                    'Injuries': '119.5',
+                    'Communicable & other Group I': '588.3',
+                    'Noncommunicable diseases': '866.1'
+                },
+                'Ethiopia': {
+                    'Injuries': '94.5',
+                    'Communicable & other Group I': '558.9',
+                    'Noncommunicable diseases': '476.3'
+                },
+                'South Africa': {
+                    'Communicable & other Group I': '611.6',
+                    'Injuries': '103.5',
+                    'Noncommunicable diseases': '710.9'
+                },
+                'Burundi': {
+                    'Injuries': '146.6',
+                    'Communicable & other Group I': '704.8',
+                    'Noncommunicable diseases': '729.5'
+                },
+                'Cabo Verde': {
+                    'Injuries': '54.4',
+                    'Noncommunicable diseases': '482.1',
+                    'Communicable & other Group I': '141.9'
+                },
+                'Liberia': {
+                    'Noncommunicable diseases': '656.9',
+                    'Injuries': '83.3',
+                    'Communicable & other Group I': '609.1'
+                },
+                'Uganda': {
+                    'Noncommunicable diseases': '664.4',
+                    'Communicable & other Group I': '696.7',
+                    'Injuries': '166.8'
+                },
+                'Mauritius': {
+                    'Noncommunicable diseases': '576.5',
+                    'Injuries': '44.1',
+                    'Communicable & other Group I': '61.8'
+                },
+                'Algeria': {
+                    'Noncommunicable diseases': '710.4',
+                    'Injuries': '53.8',
+                    'Communicable & other Group I': '97.8'
+                },
+                'C\u00f4te d\'Ivoire': {
+                    'Noncommunicable diseases': '794.0',
+                    'Injuries': '124.0',
+                    'Communicable & other Group I': '861.3'
+                },
+                'Malawi': {
+                    'Injuries': '97.7',
+                    'Communicable & other Group I': '777.6',
+                    'Noncommunicable diseases': '655.0'
+                },
+                'Botswana': {
+                    'Injuries': '87.9',
+                    'Noncommunicable diseases': '612.2',
+                    'Communicable & other Group I': '555.3'
+                },
+                'Guinea': {
+                    'Injuries': '96.0',
+                    'Noncommunicable diseases': '681.1',
+                    'Communicable & other Group I': '679.6'
+                },
+                'Ghana': {
+                    'Injuries': '76.1',
+                    'Noncommunicable diseases': '669.9',
+                    'Communicable & other Group I': '476.0'
+                },
+                'Kenya': {
+                    'Noncommunicable diseases': '514.7',
+                    'Injuries': '101.1',
+                    'Communicable & other Group I': '657.5'
+                },
+                'Gambia': {
+                    'Noncommunicable diseases': '629.6',
+                    'Injuries': '96.0',
+                    'Communicable & other Group I': '590.5'
+                },
+                'Angola': {
+                    'Injuries': '137.8',
+                    'Noncommunicable diseases': '768.4',
+                    'Communicable & other Group I': '873.3'
+                },
+                'Sierra Leone': {
+                    'Communicable & other Group I': '1327.4',
+                    'Noncommunicable diseases': '963.5',
+                    'Injuries': '149.5'
+                },
+                'Mauritania': {
+                    'Communicable & other Group I': '619.1',
+                    'Injuries': '83.4',
+                    'Noncommunicable diseases': '555.1'
+                },
+                'Comoros': {
+                    'Communicable & other Group I': '494.6',
+                    'Injuries': '132.4',
+                    'Noncommunicable diseases': '695.5'
+                },
+                'Gabon': {
+                    'Noncommunicable diseases': '504.6',
+                    'Injuries': '77.4',
+                    'Communicable & other Group I': '589.4'
+                },
+                'Niger': {
+                    'Injuries': '97.6',
+                    'Communicable & other Group I': '740.0',
+                    'Noncommunicable diseases': '649.1'
+                },
+                'Lesotho': {
+                    'Communicable & other Group I': '1110.5',
+                    'Injuries': '142.5',
+                    'Noncommunicable diseases': '671.8'
+                },
+                'Nigeria': {
+                    'Noncommunicable diseases': '673.7',
+                    'Communicable & other Group I': '866.2',
+                    'Injuries': '145.6'
+                }
+            },
+            'Americas': {
+                'Canada': {
+                    'Noncommunicable diseases': '318.0',
+                    'Injuries': '31.3',
+                    'Communicable & other Group I': '22.6'
+                },
+                'Bolivia (Plurinational State of)': {
+                    'Communicable & other Group I': '226.2',
+                    'Noncommunicable diseases': '635.3',
+                    'Injuries': '100.0'
+                },
+                'Haiti': {
+                    'Communicable & other Group I': '405.4',
+                    'Noncommunicable diseases': '724.6',
+                    'Injuries': '89.3'
+                },
+                'Belize': {
+                    'Noncommunicable diseases': '470.7',
+                    'Injuries': '82.0',
+                    'Communicable & other Group I': '104.6'
+                },
+                'Suriname': {
+                    'Injuries': '70.5',
+                    'Communicable & other Group I': '83.7',
+                    'Noncommunicable diseases': '374.8'
+                },
+                'Argentina': {
+                    'Communicable & other Group I': '68.7',
+                    'Injuries': '50.7',
+                    'Noncommunicable diseases': '467.3'
+                },
+                'Mexico': {
+                    'Injuries': '63.2',
+                    'Communicable & other Group I': '57.0',
+                    'Noncommunicable diseases': '468.3'
+                },
+                'Jamaica': {
+                    'Injuries': '51.5',
+                    'Communicable & other Group I': '97.0',
+                    'Noncommunicable diseases': '519.1'
+                },
+                'Peru': {
+                    'Noncommunicable diseases': '363.5',
+                    'Injuries': '47.9',
+                    'Communicable & other Group I': '121.3'
+                },
+                'Brazil': {
+                    'Injuries': '80.2',
+                    'Communicable & other Group I': '92.8',
+                    'Noncommunicable diseases': '513.8'
+                },
+                'Venezuela (Bolivarian Republic of)': {
+                    'Communicable & other Group I': '58.2',
+                    'Injuries': '103.2',
+                    'Noncommunicable diseases': '410.6'
+                },
+                'Paraguay': {
+                    'Noncommunicable diseases': '485.5',
+                    'Communicable & other Group I': '77.3',
+                    'Injuries': '67.6'
+                },
+                'Chile': {
+                    'Noncommunicable diseases': '366.5',
+                    'Communicable & other Group I': '36.3',
+                    'Injuries': '41.2'
+                },
+                'Trinidad and Tobago': {
+                    'Noncommunicable diseases': '705.3',
+                    'Communicable & other Group I': '80.4',
+                    'Injuries': '98.4'
+                },
+                'Colombia': {
+                    'Noncommunicable diseases': '377.3',
+                    'Communicable & other Group I': '55.0',
+                    'Injuries': '72.6'
+                },
+                'Cuba': {
+                    'Injuries': '45.3',
+                    'Noncommunicable diseases': '421.8',
+                    'Communicable & other Group I': '33.2'
+                },
+                'El Salvador': {
+                    'Noncommunicable diseases': '474.9',
+                    'Injuries': '157.7',
+                    'Communicable & other Group I': '96.2'
+                },
+                'Honduras': {
+                    'Injuries': '80.8',
+                    'Communicable & other Group I': '117.5',
+                    'Noncommunicable diseases': '441.5'
+                },
+                'Ecuador': {
+                    'Noncommunicable diseases': '409.7',
+                    'Injuries': '83.7',
+                    'Communicable & other Group I': '97.3'
+                },
+                'Costa Rica': {
+                    'Communicable & other Group I': '30.5',
+                    'Noncommunicable diseases': '391.8',
+                    'Injuries': '46.5'
+                },
+                'Dominican Republic': {
+                    'Noncommunicable diseases': '396.0',
+                    'Injuries': '66.4',
+                    'Communicable & other Group I': '76.8'
+                },
+                'Nicaragua': {
+                    'Communicable & other Group I': '75.2',
+                    'Injuries': '64.4',
+                    'Noncommunicable diseases': '546.6'
+                },
+                'Barbados': {
+                    'Noncommunicable diseases': '404.5',
+                    'Injuries': '28.0',
+                    'Communicable & other Group I': '60.8'
+                },
+                'Uruguay': {
+                    'Noncommunicable diseases': '446.0',
+                    'Injuries': '53.8',
+                    'Communicable & other Group I': '46.2'
+                },
+                'Panama': {
+                    'Communicable & other Group I': '86.1',
+                    'Injuries': '67.4',
+                    'Noncommunicable diseases': '372.9'
+                },
+                'Bahamas': {
+                    'Noncommunicable diseases': '465.2',
+                    'Injuries': '45.7',
+                    'Communicable & other Group I': '122.0'
+                },
+                'Guyana': {
+                    'Communicable & other Group I': '177.2',
+                    'Noncommunicable diseases': '1024.2',
+                    'Injuries': '150.0'
+                },
+                'United States of America': {
+                    'Noncommunicable diseases': '412.8',
+                    'Injuries': '44.2',
+                    'Communicable & other Group I': '31.3'
+                },
+                'Guatemala': {
+                    'Communicable & other Group I': '212.7',
+                    'Noncommunicable diseases': '409.4',
+                    'Injuries': '111.0'
+                }
+            },
+            'Eastern Mediterranean': {
+                'Egypt': {
+                    'Communicable & other Group I': '74.3',
+                    'Noncommunicable diseases': '781.7',
+                    'Injuries': '33.5'
+                },
+                'South Sudan': {
+                    'Injuries': '143.4',
+                    'Communicable & other Group I': '831.3',
+                    'Noncommunicable diseases': '623.4'
+                },
+                'Sudan': {
+                    'Injuries': '133.6',
+                    'Noncommunicable diseases': '551.0',
+                    'Communicable & other Group I': '495.0'
+                },
+                'Libya': {
+                    'Injuries': '62.8',
+                    'Noncommunicable diseases': '550.0',
+                    'Communicable & other Group I': '52.6'
+                },
+                'Jordan': {
+                    'Noncommunicable diseases': '640.3',
+                    'Injuries': '53.5',
+                    'Communicable & other Group I': '52.5'
+                },
+                'Pakistan': {
+                    'Communicable & other Group I': '296.0',
+                    'Noncommunicable diseases': '669.3',
+                    'Injuries': '98.7'
+                },
+                'Djibouti': {
+                    'Noncommunicable diseases': '631.1',
+                    'Communicable & other Group I': '626.0',
+                    'Injuries': '106.0'
+                },
+                'Syrian Arab Republic': {
+                    'Communicable & other Group I': '41.0',
+                    'Injuries': '308.0',
+                    'Noncommunicable diseases': '572.7'
+                },
+                'Morocco': {
+                    'Noncommunicable diseases': '707.7',
+                    'Communicable & other Group I': '131.5',
+                    'Injuries': '47.0'
+                },
+                'Yemen': {
+                    'Communicable & other Group I': '515.0',
+                    'Noncommunicable diseases': '626.9',
+                    'Injuries': '84.3'
+                },
+                'Bahrain': {
+                    'Injuries': '33.5',
+                    'Noncommunicable diseases': '505.7',
+                    'Communicable & other Group I': '48.5'
+                },
+                'United Arab Emirates': {
+                    'Noncommunicable diseases': '546.8',
+                    'Injuries': '31.5',
+                    'Communicable & other Group I': '35.6'
+                },
+                'Lebanon': {
+                    'Noncommunicable diseases': '384.6',
+                    'Injuries': '40.6',
+                    'Communicable & other Group I': '30.5'
+                },
+                'Saudi Arabia': {
+                    'Noncommunicable diseases': '549.4',
+                    'Injuries': '41.1',
+                    'Communicable & other Group I': '71.3'
+                },
+                'Iran (Islamic Republic of)': {
+                    'Injuries': '74.9',
+                    'Communicable & other Group I': '56.2',
+                    'Noncommunicable diseases': '569.3'
+                },
+                'Iraq': {
+                    'Communicable & other Group I': '87.0',
+                    'Noncommunicable diseases': '715.5',
+                    'Injuries': '128.5'
+                },
+                'Qatar': {
+                    'Communicable & other Group I': '28.3',
+                    'Injuries': '41.0',
+                    'Noncommunicable diseases': '407.0'
+                },
+                'Afghanistan': {
+                    'Communicable & other Group I': '362.7',
+                    'Injuries': '169.2',
+                    'Noncommunicable diseases': '846.3'
+                },
+                'Somalia': {
+                    'Noncommunicable diseases': '550.7',
+                    'Communicable & other Group I': '927.2',
+                    'Injuries': '188.5'
+                },
+                'Kuwait': {
+                    'Communicable & other Group I': '82.5',
+                    'Injuries': '25.4',
+                    'Noncommunicable diseases': '406.3'
+                },
+                'Oman': {
+                    'Injuries': '52.8',
+                    'Noncommunicable diseases': '478.2',
+                    'Communicable & other Group I': '84.2'
+                },
+                'Tunisia': {
+                    'Noncommunicable diseases': '509.3',
+                    'Communicable & other Group I': '65.0',
+                    'Injuries': '39.1'
+                }
+            },
+            'Western Pacific': {
+                'Mongolia': {
+                    'Injuries': '69.4',
+                    'Noncommunicable diseases': '966.5',
+                    'Communicable & other Group I': '82.8'
+                },
+                'Cambodia': {
+                    'Injuries': '62.2',
+                    'Communicable & other Group I': '227.5',
+                    'Noncommunicable diseases': '394.0'
+                },
+                'Japan': {
+                    'Injuries': '40.5',
+                    'Noncommunicable diseases': '244.2',
+                    'Communicable & other Group I': '33.9'
+                },
+                'Brunei Darussalam': {
+                    'Injuries': '44.6',
+                    'Noncommunicable diseases': '475.3',
+                    'Communicable & other Group I': '56.1'
+                },
+                'Solomon Islands': {
+                    'Communicable & other Group I': '230.6',
+                    'Injuries': '75.1',
+                    'Noncommunicable diseases': '709.7'
+                },
+                'Viet Nam': {
+                    'Communicable & other Group I': '96.0',
+                    'Injuries': '59.0',
+                    'Noncommunicable diseases': '435.4'
+                },
+                'Lao People\'s Democratic Republic': {
+                    'Communicable & other Group I': '328.7',
+                    'Injuries': '75.2',
+                    'Noncommunicable diseases': '680.0'
+                },
+                'China': {
+                    'Communicable & other Group I': '41.4',
+                    'Noncommunicable diseases': '576.3',
+                    'Injuries': '50.4'
+                },
+                'New Zealand': {
+                    'Injuries': '32.9',
+                    'Noncommunicable diseases': '313.6',
+                    'Communicable & other Group I': '18.0'
+                },
+                'Papua New Guinea': {
+                    'Injuries': '100.1',
+                    'Communicable & other Group I': '554.3',
+                    'Noncommunicable diseases': '693.2'
+                },
+                'Philippines': {
+                    'Communicable & other Group I': '226.4',
+                    'Noncommunicable diseases': '720.0',
+                    'Injuries': '53.8'
+                },
+                'Malaysia': {
+                    'Injuries': '62.8',
+                    'Noncommunicable diseases': '563.2',
+                    'Communicable & other Group I': '117.4'
+                },
+                'Australia': {
+                    'Communicable & other Group I': '13.7',
+                    'Noncommunicable diseases': '302.9',
+                    'Injuries': '28.2'
+                },
+                'Fiji': {
+                    'Noncommunicable diseases': '804.0',
+                    'Injuries': '64.0',
+                    'Communicable & other Group I': '105.2'
+                },
+                'Singapore': {
+                    'Communicable & other Group I': '66.2',
+                    'Noncommunicable diseases': '264.8',
+                    'Injuries': '17.5'
+                },
+                'Republic of Korea': {
+                    'Injuries': '53.1',
+                    'Communicable & other Group I': '33.8',
+                    'Noncommunicable diseases': '302.1'
+                }
+            }
+        },
+        points = [],
+        regionP,
+        regionVal,
+        regionI = 0,
+        countryP,
+        countryI,
+        causeP,
+        causeI,
+        region,
+        country,
+        cause,
+        causeName = {
+            'Communicable & other Group I': 'Communicable diseases',
+            'Noncommunicable diseases': 'Non-communicable diseases',
+            'Injuries': 'Injuries'
+        };
+
+    for (region in data) {
+        if (data.hasOwnProperty(region)) {
+            regionVal = 0;
+            regionP = {
+                id: 'id_' + regionI,
+                name: region,
+                color: Highcharts.getOptions().colors[regionI]
+            };
+            countryI = 0;
+            for (country in data[region]) {
+                if (data[region].hasOwnProperty(country)) {
+                    countryP = {
+                        id: regionP.id + '_' + countryI,
+                        name: country,
+                        parent: regionP.id
+                    };
+                    points.push(countryP);
+                    causeI = 0;
+                    for (cause in data[region][country]) {
+                        if (data[region][country].hasOwnProperty(cause)) {
+                            causeP = {
+                                id: countryP.id + '_' + causeI,
+                                name: causeName[cause],
+                                parent: countryP.id,
+                                value: Math.round(+data[region][country][cause])
+                            };
+                            regionVal += causeP.value;
+                            points.push(causeP);
+                            causeI = causeI + 1;
+                        }
+                    }
+                    countryI = countryI + 1;
+                }
+            }
+            regionP.value = Math.round(regionVal / countryI);
+            points.push(regionP);
+            regionI = regionI + 1;
+        }
+    }
+    Highcharts.chart('tree', {
+        series: [{
+            type: 'treemap',
+            layoutAlgorithm: 'squarified',
+            allowDrillToNode: true,
+            animationLimit: 1000,
+            dataLabels: {
+                enabled: false
+            },
+            levelIsConstant: false,
+            levels: [{
+                level: 1,
+                dataLabels: {
+                    enabled: true
+                },
+                borderWidth: 3
+            }],
+            data: points
+        }],
+        subtitle: {
+            text: 'Click points to drill down.'
+        }
+    });
+});
+</script>
+<script type="text/javascript">
+    $(function () {
+    Highcharts.chart('bubble', {
+
+        chart: {
+            type: 'bubble',
+            plotBorderWidth: 1,
+            zoomType: 'xy'
+        },
+
+        title: {
+            text: 'Highcharts bubbles with radial gradient fill'
+        },
+
+        xAxis: {
+            gridLineWidth: 1
+        },
+
+        yAxis: {
+            startOnTick: false,
+            endOnTick: false
+        },
+
+        series: [{
+            data: [
+                [9, 81, 63],
+                [98, 5, 89],
+                [51, 50, 73],
+                [41, 22, 14],
+                [58, 24, 20],
+                [78, 37, 34],
+                [55, 56, 53],
+                [18, 45, 70],
+                [42, 44, 28],
+                [3, 52, 59],
+                [31, 18, 97],
+                [79, 91, 63],
+                [93, 23, 23],
+                [44, 83, 22]
+            ],
+            marker: {
+                fillColor: {
+                    radialGradient: { cx: 0.4, cy: 0.3, r: 0.7 },
+                    stops: [
+                        [0, 'rgba(255,255,255,0.5)'],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0.5).get('rgba')]
+                    ]
+                }
+            }
+        }, {
+            data: [
+                [42, 38, 20],
+                [6, 18, 1],
+                [1, 93, 55],
+                [57, 2, 90],
+                [80, 76, 22],
+                [11, 74, 96],
+                [88, 56, 10],
+                [30, 47, 49],
+                [57, 62, 98],
+                [4, 16, 16],
+                [46, 10, 11],
+                [22, 87, 89],
+                [57, 91, 82],
+                [45, 15, 98]
+            ],
+            marker: {
+                fillColor: {
+                    radialGradient: { cx: 0.4, cy: 0.3, r: 0.7 },
+                    stops: [
+                        [0, 'rgba(255,255,255,0.5)'],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[1]).setOpacity(0.5).get('rgba')]
+                    ]
+                }
+            }
+        }]
+
+    });
+});
+</script>
+<script type="text/javascript">
+    $(function () {
+
+    var colors = Highcharts.getOptions().colors,
+        categories = ['MSIE', 'Firefox', 'Chrome', 'Safari', 'Opera'],
+        data = [{
+            y: 56.33,
+            color: colors[0],
+            drilldown: {
+                name: 'MSIE versions',
+                categories: ['MSIE 6.0', 'MSIE 7.0', 'MSIE 8.0', 'MSIE 9.0', 'MSIE 10.0', 'MSIE 11.0'],
+                data: [1.06, 0.5, 17.2, 8.11, 5.33, 24.13],
+                color: colors[0]
+            }
+        }, {
+            y: 10.38,
+            color: colors[1],
+            drilldown: {
+                name: 'Firefox versions',
+                categories: ['Firefox v31', 'Firefox v32', 'Firefox v33', 'Firefox v35', 'Firefox v36', 'Firefox v37', 'Firefox v38'],
+                data: [0.33, 0.15, 0.22, 1.27, 2.76, 2.32, 2.31, 1.02],
+                color: colors[1]
+            }
+        }, {
+            y: 24.03,
+            color: colors[2],
+            drilldown: {
+                name: 'Chrome versions',
+                categories: ['Chrome v30.0', 'Chrome v31.0', 'Chrome v32.0', 'Chrome v33.0', 'Chrome v34.0',
+                    'Chrome v35.0', 'Chrome v36.0', 'Chrome v37.0', 'Chrome v38.0', 'Chrome v39.0', 'Chrome v40.0', 'Chrome v41.0', 'Chrome v42.0', 'Chrome v43.0'
+                    ],
+                data: [0.14, 1.24, 0.55, 0.19, 0.14, 0.85, 2.53, 0.38, 0.6, 2.96, 5, 4.32, 3.68, 1.45],
+                color: colors[2]
+            }
+        }, {
+            y: 4.77,
+            color: colors[3],
+            drilldown: {
+                name: 'Safari versions',
+                categories: ['Safari v5.0', 'Safari v5.1', 'Safari v6.1', 'Safari v6.2', 'Safari v7.0', 'Safari v7.1', 'Safari v8.0'],
+                data: [0.3, 0.42, 0.29, 0.17, 0.26, 0.77, 2.56],
+                color: colors[3]
+            }
+        }, {
+            y: 0.91,
+            color: colors[4],
+            drilldown: {
+                name: 'Opera versions',
+                categories: ['Opera v12.x', 'Opera v27', 'Opera v28', 'Opera v29'],
+                data: [0.34, 0.17, 0.24, 0.16],
+                color: colors[4]
+            }
+        }, {
+            y: 0.2,
+            color: colors[5],
+            drilldown: {
+                name: 'Proprietary or Undetectable',
+                categories: [],
+                data: [],
+                color: colors[5]
+            }
+        }],
+        browserData = [],
+        versionsData = [],
+        i,
+        j,
+        dataLen = data.length,
+        drillDataLen,
+        brightness;
+
+
+    // Build the data arrays
+    for (i = 0; i < dataLen; i += 1) {
+
+        // add browser data
+        browserData.push({
+            name: categories[i],
+            y: data[i].y,
+            color: data[i].color
+        });
+
+        // add version data
+        drillDataLen = data[i].drilldown.data.length;
+        for (j = 0; j < drillDataLen; j += 1) {
+            brightness = 0.2 - (j / drillDataLen) / 5;
+            versionsData.push({
+                name: data[i].drilldown.categories[j],
+                y: data[i].drilldown.data[j],
+                color: Highcharts.Color(data[i].color).brighten(brightness).get()
+            });
+        }
+    }
+
+    // Create the chart
+    Highcharts.chart('donut', {
+        chart: {
+            type: 'pie'
+        },
+        title: {
+            text: 'Browser market share, January, 2015 to May, 2015'
+        },
+        subtitle: {
+            text: 'Source: <a href="http://netmarketshare.com/">netmarketshare.com</a>'
+        },
+        yAxis: {
+            title: {
+                text: 'Total percent market share'
+            }
+        },
+        plotOptions: {
+            pie: {
+                shadow: false,
+                center: ['50%', '50%']
+            }
+        },
+        tooltip: {
+            valueSuffix: '%'
+        },
+        series: [{
+            name: 'Browsers',
+            data: browserData,
+            size: '60%',
+            dataLabels: {
+                formatter: function () {
+                    return this.y > 5 ? this.point.name : null;
+                },
+                color: '#ffffff',
+                distance: -30
+            }
+        }, {
+            name: 'Versions',
+            data: versionsData,
+            size: '80%',
+            innerSize: '60%',
+            dataLabels: {
+                formatter: function () {
+                    // display only if larger than 1
+                    return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%' : null;
+                }
+            }
+        }]
+    });
+});
+</script>
+<script type="text/javascript">
+    $(function () {
+    Highcharts.chart('combi', {
+        title: {
+            text: 'Combination chart'
+        },
+        xAxis: {
+            categories: ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']
+        },
+        labels: {
+            items: [{
+                html: 'Total fruit consumption',
+                style: {
+                    left: '50px',
+                    top: '18px',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+                }
+            }]
+        },
+        series: [{
+            type: 'column',
+            name: 'Jane',
+            data: [3, 2, 1, 3, 4]
+        }, {
+            type: 'column',
+            name: 'John',
+            data: [2, 3, 5, 7, 6]
+        }, {
+            type: 'column',
+            name: 'Joe',
+            data: [4, 3, 3, 9, 0]
+        }, {
+            type: 'spline',
+            name: 'Average',
+            data: [3, 2.67, 3, 6.33, 3.33],
+            marker: {
+                lineWidth: 2,
+                lineColor: Highcharts.getOptions().colors[3],
+                fillColor: 'white'
+            }
+        }, {
+            type: 'pie',
+            name: 'Total consumption',
+            data: [{
+                name: 'Jane',
+                y: 13,
+                color: Highcharts.getOptions().colors[0] // Jane's color
+            }, {
+                name: 'John',
+                y: 23,
+                color: Highcharts.getOptions().colors[1] // John's color
+            }, {
+                name: 'Joe',
+                y: 19,
+                color: Highcharts.getOptions().colors[2] // Joe's color
+            }],
+            center: [100, 80],
+            size: 100,
+            showInLegend: false,
+            dataLabels: {
+                enabled: false
+            }
+        }]
+    });
+});
+
+
+</script>
+<script type="text/javascript">
+
+
+function Meteogram(xml, container) {
+    // Parallel arrays for the chart data, these are populated as the XML/JSON file
+    // is loaded
+    this.symbols = [];
+    this.symbolNames = [];
+    this.precipitations = [];
+    this.windDirections = [];
+    this.windDirectionNames = [];
+    this.windSpeeds = [];
+    this.windSpeedNames = [];
+    this.temperatures = [];
+    this.pressures = [];
+
+    // Initialize
+    this.xml = xml;
+    this.container = container;
+
+    // Run
+    this.parseYrData();
+}
+/**
+ * Return weather symbol sprites as laid out at http://om.yr.no/forklaring/symbol/
+ */
+Meteogram.prototype.getSymbolSprites = function (symbolSize) {
+    return {
+        '01d': {
+            x: 0,
+            y: 0
+        },
+        '01n': {
+            x: symbolSize,
+            y: 0
+        },
+        '16': {
+            x: 2 * symbolSize,
+            y: 0
+        },
+        '02d': {
+            x: 0,
+            y: symbolSize
+        },
+        '02n': {
+            x: symbolSize,
+            y: symbolSize
+        },
+        '03d': {
+            x: 0,
+            y: 2 * symbolSize
+        },
+        '03n': {
+            x: symbolSize,
+            y: 2 * symbolSize
+        },
+        '17': {
+            x: 2 * symbolSize,
+            y: 2 * symbolSize
+        },
+        '04': {
+            x: 0,
+            y: 3 * symbolSize
+        },
+        '05d': {
+            x: 0,
+            y: 4 * symbolSize
+        },
+        '05n': {
+            x: symbolSize,
+            y: 4 * symbolSize
+        },
+        '18': {
+            x: 2 * symbolSize,
+            y: 4 * symbolSize
+        },
+        '06d': {
+            x: 0,
+            y: 5 * symbolSize
+        },
+        '06n': {
+            x: symbolSize,
+            y: 5 * symbolSize
+        },
+        '07d': {
+            x: 0,
+            y: 6 * symbolSize
+        },
+        '07n': {
+            x: symbolSize,
+            y: 6 * symbolSize
+        },
+        '08d': {
+            x: 0,
+            y: 7 * symbolSize
+        },
+        '08n': {
+            x: symbolSize,
+            y: 7 * symbolSize
+        },
+        '19': {
+            x: 2 * symbolSize,
+            y: 7 * symbolSize
+        },
+        '09': {
+            x: 0,
+            y: 8 * symbolSize
+        },
+        '10': {
+            x: 0,
+            y: 9 * symbolSize
+        },
+        '11': {
+            x: 0,
+            y: 10 * symbolSize
+        },
+        '12': {
+            x: 0,
+            y: 11 * symbolSize
+        },
+        '13': {
+            x: 0,
+            y: 12 * symbolSize
+        },
+        '14': {
+            x: 0,
+            y: 13 * symbolSize
+        },
+        '15': {
+            x: 0,
+            y: 14 * symbolSize
+        },
+        '20d': {
+            x: 0,
+            y: 15 * symbolSize
+        },
+        '20n': {
+            x: symbolSize,
+            y: 15 * symbolSize
+        },
+        '20m': {
+            x: 2 * symbolSize,
+            y: 15 * symbolSize
+        },
+        '21d': {
+            x: 0,
+            y: 16 * symbolSize
+        },
+        '21n': {
+            x: symbolSize,
+            y: 16 * symbolSize
+        },
+        '21m': {
+            x: 2 * symbolSize,
+            y: 16 * symbolSize
+        },
+        '22': {
+            x: 0,
+            y: 17 * symbolSize
+        },
+        '23': {
+            x: 0,
+            y: 18 * symbolSize
+        }
+    };
+};
+
+
+/**
+ * Function to smooth the temperature line. The original data provides only whole degrees,
+ * which makes the line graph look jagged. So we apply a running mean on it, but preserve
+ * the unaltered value in the tooltip.
+ */
+Meteogram.prototype.smoothLine = function (data) {
+    var i = data.length,
+        sum,
+        value;
+
+    while (i--) {
+        data[i].value = value = data[i].y; // preserve value for tooltip
+
+        // Set the smoothed value to the average of the closest points, but don't allow
+        // it to differ more than 0.5 degrees from the given value
+        sum = (data[i - 1] || data[i]).y + value + (data[i + 1] || data[i]).y;
+        data[i].y = Math.max(value - 0.5, Math.min(sum / 3, value + 0.5));
+    }
+};
+
+/**
+ * Callback function that is called from Highcharts on hovering each point and returns
+ * HTML for the tooltip.
+ */
+Meteogram.prototype.tooltipFormatter = function (tooltip) {
+
+    // Create the header with reference to the time interval
+    var index = tooltip.points[0].point.index,
+        ret = '<small>' + Highcharts.dateFormat('%A, %b %e, %H:%M', tooltip.x) + '-' +
+            Highcharts.dateFormat('%H:%M', tooltip.points[0].point.to) + '</small><br>';
+
+    // Symbol text
+    ret += '<b>' + this.symbolNames[index] + '</b>';
+
+    ret += '<table>';
+
+    // Add all series
+    Highcharts.each(tooltip.points, function (point) {
+        var series = point.series;
+        ret += '<tr><td><span style="color:' + series.color + '">\u25CF</span> ' + series.name +
+            ': </td><td style="white-space:nowrap">' + Highcharts.pick(point.point.value, point.y) +
+            series.options.tooltip.valueSuffix + '</td></tr>';
+    });
+
+    // Add wind
+    ret += '<tr><td style="vertical-align: top">\u25CF Wind</td><td style="white-space:nowrap">' + this.windDirectionNames[index] +
+        '<br>' + this.windSpeedNames[index] + ' (' +
+        Highcharts.numberFormat(this.windSpeeds[index], 1) + ' m/s)</td></tr>';
+
+    // Close
+    ret += '</table>';
+
+
+    return ret;
+};
+
+/**
+ * Draw the weather symbols on top of the temperature series. The symbols are sprites of a single
+ * file, defined in the getSymbolSprites function above.
+ */
+Meteogram.prototype.drawWeatherSymbols = function (chart) {
+    var meteogram = this,
+        symbolSprites = this.getSymbolSprites(30);
+
+    $.each(chart.series[0].data, function (i, point) {
+        var sprite,
+            group;
+
+        if (meteogram.resolution > 36e5 || i % 2 === 0) {
+
+            sprite = symbolSprites[meteogram.symbols[i]];
+            if (sprite) {
+
+                // Create a group element that is positioned and clipped at 30 pixels width and height
+                group = chart.renderer.g()
+                    .attr({
+                        translateX: point.plotX + chart.plotLeft - 15,
+                        translateY: point.plotY + chart.plotTop - 30,
+                        zIndex: 5
+                    })
+                    .clip(chart.renderer.clipRect(0, 0, 30, 30))
+                    .add();
+
+                // Position the image inside it at the sprite position
+                chart.renderer.image(
+                    'https://www.highcharts.com/samples/graphics/meteogram-symbols-30px.png',
+                    -sprite.x,
+                    -sprite.y,
+                    90,
+                    570
+                )
+                    .add(group);
+            }
+        }
+    });
+};
+
+/**
+ * Create wind speed symbols for the Beaufort wind scale. The symbols are rotated
+ * around the zero centerpoint.
+ */
+Meteogram.prototype.windArrow = function (name) {
+    var level,
+        path;
+
+    // The stem and the arrow head
+    path = [
+        'M', 0, 7, // base of arrow
+        'L', -1.5, 7,
+        0, 10,
+        1.5, 7,
+        0, 7,
+        0, -10 // top
+    ];
+
+    level = $.inArray(name, ['Calm', 'Light air', 'Light breeze', 'Gentle breeze', 'Moderate breeze',
+        'Fresh breeze', 'Strong breeze', 'Near gale', 'Gale', 'Strong gale', 'Storm',
+        'Violent storm', 'Hurricane']);
+
+    if (level === 0) {
+        path = [];
+    }
+
+    if (level === 2) {
+        path.push('M', 0, -8, 'L', 4, -8); // short line
+    } else if (level >= 3) {
+        path.push(0, -10, 7, -10); // long line
+    }
+
+    if (level === 4) {
+        path.push('M', 0, -7, 'L', 4, -7);
+    } else if (level >= 5) {
+        path.push('M', 0, -7, 'L', 7, -7);
+    }
+
+    if (level === 5) {
+        path.push('M', 0, -4, 'L', 4, -4);
+    } else if (level >= 6) {
+        path.push('M', 0, -4, 'L', 7, -4);
+    }
+
+    if (level === 7) {
+        path.push('M', 0, -1, 'L', 4, -1);
+    } else if (level >= 8) {
+        path.push('M', 0, -1, 'L', 7, -1);
+    }
+
+    return path;
+};
+
+/**
+ * Draw the wind arrows. Each arrow path is generated by the windArrow function above.
+ */
+Meteogram.prototype.drawWindArrows = function (chart) {
+    var meteogram = this;
+
+    $.each(chart.series[0].data, function (i, point) {
+        var arrow, x, y;
+
+        if (meteogram.resolution > 36e5 || i % 2 === 0) {
+
+            // Draw the wind arrows
+            x = point.plotX + chart.plotLeft + 7;
+            y = 255;
+            if (meteogram.windSpeedNames[i] === 'Calm') {
+                arrow = chart.renderer.circle(x, y, 10).attr({
+                    fill: 'none'
+                });
+            } else {
+                arrow = chart.renderer.path(
+                    meteogram.windArrow(meteogram.windSpeedNames[i])
+                ).attr({
+                    rotation: parseInt(meteogram.windDirections[i], 10),
+                    translateX: x, // rotation center
+                    translateY: y // rotation center
+                });
+            }
+            arrow.attr({
+                stroke: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+                'stroke-width': 1.5,
+                zIndex: 5
+            })
+            .add();
+
+        }
+    });
+};
+
+/**
+ * Draw blocks around wind arrows, below the plot area
+ */
+Meteogram.prototype.drawBlocksForWindArrows = function (chart) {
+    var xAxis = chart.xAxis[0],
+        x,
+        pos,
+        max,
+        isLong,
+        isLast,
+        i;
+
+    for (pos = xAxis.min, max = xAxis.max, i = 0; pos <= max + 36e5; pos += 36e5, i += 1) {
+
+        // Get the X position
+        isLast = pos === max + 36e5;
+        x = Math.round(xAxis.toPixels(pos)) + (isLast ? 0.5 : -0.5);
+
+        // Draw the vertical dividers and ticks
+        if (this.resolution > 36e5) {
+            isLong = pos % this.resolution === 0;
+        } else {
+            isLong = i % 2 === 0;
+        }
+        chart.renderer.path(['M', x, chart.plotTop + chart.plotHeight + (isLong ? 0 : 28),
+            'L', x, chart.plotTop + chart.plotHeight + 32, 'Z'])
+            .attr({
+                'stroke': chart.options.chart.plotBorderColor,
+                'stroke-width': 1
+            })
+            .add();
+    }
+};
+
+/**
+ * Get the title based on the XML data
+ */
+Meteogram.prototype.getTitle = function () {
+    return 'Meteogram for ' + this.xml.location.name + ', ' + this.xml.location.country;
+};
+
+/**
+ * Build and return the Highcharts options structure
+ */
+Meteogram.prototype.getChartOptions = function () {
+    var meteogram = this;
+
+    return {
+        chart: {
+            renderTo: this.container,
+            marginBottom: 70,
+            marginRight: 40,
+            marginTop: 50,
+            plotBorderWidth: 1,
+            width: 540,
+            height: 310
+        },
+
+        title: {
+            text: this.getTitle(),
+            align: 'left'
+        },
+
+        credits: {
+            text: 'Forecast from <a href="http://yr.no">yr.no</a>',
+            href: this.xml.credit.link['@attributes'].url,
+            position: {
+                x: -40
+            }
+        },
+
+        tooltip: {
+            shared: true,
+            useHTML: true,
+            formatter: function () {
+                return meteogram.tooltipFormatter(this);
+            }
+        },
+
+        xAxis: [{ // Bottom X axis
+            type: 'datetime',
+            tickInterval: 2 * 36e5, // two hours
+            minorTickInterval: 36e5, // one hour
+            tickLength: 0,
+            gridLineWidth: 1,
+            gridLineColor: (Highcharts.theme && Highcharts.theme.background2) || '#F0F0F0',
+            startOnTick: false,
+            endOnTick: false,
+            minPadding: 0,
+            maxPadding: 0,
+            offset: 30,
+            showLastLabel: true,
+            labels: {
+                format: '{value:%H}'
+            }
+        }, { // Top X axis
+            linkedTo: 0,
+            type: 'datetime',
+            tickInterval: 24 * 3600 * 1000,
+            labels: {
+                format: '{value:<span style="font-size: 12px; font-weight: bold">%a</span> %b %e}',
+                align: 'left',
+                x: 3,
+                y: -5
+            },
+            opposite: true,
+            tickLength: 20,
+            gridLineWidth: 1
+        }],
+
+        yAxis: [{ // temperature axis
+            title: {
+                text: null
+            },
+            labels: {
+                format: '{value}°',
+                style: {
+                    fontSize: '10px'
+                },
+                x: -3
+            },
+            plotLines: [{ // zero plane
+                value: 0,
+                color: '#BBBBBB',
+                width: 1,
+                zIndex: 2
+            }],
+            // Custom positioner to provide even temperature ticks from top down
+            tickPositioner: function () {
+                var max = Math.ceil(this.max) + 1,
+                    pos = max - 12, // start
+                    ret;
+
+                if (pos < this.min) {
+                    ret = [];
+                    while (pos <= max) {
+                        ret.push(pos += 1);
+                    }
+                } // else return undefined and go auto
+
+                return ret;
+
+            },
+            maxPadding: 0.3,
+            tickInterval: 1,
+            gridLineColor: (Highcharts.theme && Highcharts.theme.background2) || '#F0F0F0'
+
+        }, { // precipitation axis
+            title: {
+                text: null
+            },
+            labels: {
+                enabled: false
+            },
+            gridLineWidth: 0,
+            tickLength: 0
+
+        }, { // Air pressure
+            allowDecimals: false,
+            title: { // Title on top of axis
+                text: 'hPa',
+                offset: 0,
+                align: 'high',
+                rotation: 0,
+                style: {
+                    fontSize: '10px',
+                    color: Highcharts.getOptions().colors[2]
+                },
+                textAlign: 'left',
+                x: 3
+            },
+            labels: {
+                style: {
+                    fontSize: '8px',
+                    color: Highcharts.getOptions().colors[2]
+                },
+                y: 2,
+                x: 3
+            },
+            gridLineWidth: 0,
+            opposite: true,
+            showLastLabel: false
+        }],
+
+        legend: {
+            enabled: false
+        },
+
+        plotOptions: {
+            series: {
+                pointPlacement: 'between'
+            }
+        },
+
+
+        series: [{
+            name: 'Temperature',
+            data: this.temperatures,
+            type: 'spline',
+            marker: {
+                enabled: false,
+                states: {
+                    hover: {
+                        enabled: true
+                    }
+                }
+            },
+            tooltip: {
+                valueSuffix: '°C'
+            },
+            zIndex: 1,
+            color: '#FF3333',
+            negativeColor: '#48AFE8'
+        }, {
+            name: 'Precipitation',
+            data: this.precipitations,
+            type: 'column',
+            color: '#68CFE8',
+            yAxis: 1,
+            groupPadding: 0,
+            pointPadding: 0,
+            borderWidth: 0,
+            shadow: false,
+            dataLabels: {
+                enabled: true,
+                formatter: function () {
+                    if (this.y > 0) {
+                        return this.y;
+                    }
+                },
+                style: {
+                    fontSize: '8px'
+                }
+            },
+            tooltip: {
+                valueSuffix: 'mm'
+            }
+        }, {
+            name: 'Air pressure',
+            color: Highcharts.getOptions().colors[2],
+            data: this.pressures,
+            marker: {
+                enabled: false
+            },
+            shadow: false,
+            tooltip: {
+                valueSuffix: ' hPa'
+            },
+            dashStyle: 'shortdot',
+            yAxis: 2
+        }]
+    };
+};
+
+/**
+ * Post-process the chart from the callback function, the second argument to Highcharts.Chart.
+ */
+Meteogram.prototype.onChartLoad = function (chart) {
+
+    this.drawWeatherSymbols(chart);
+    this.drawWindArrows(chart);
+    this.drawBlocksForWindArrows(chart);
+
+};
+
+/**
+ * Create the chart. This function is called async when the data file is loaded and parsed.
+ */
+Meteogram.prototype.createChart = function () {
+    var meteogram = this;
+    this.chart = new Highcharts.Chart(this.getChartOptions(), function (chart) {
+        meteogram.onChartLoad(chart);
+    });
+};
+
+/**
+ * Handle the data. This part of the code is not Highcharts specific, but deals with yr.no's
+ * specific data format
+ */
+Meteogram.prototype.parseYrData = function () {
+
+    var meteogram = this,
+        xml = this.xml,
+        pointStart;
+
+    if (!xml || !xml.forecast) {
+        $('#loading').html('<i class="fa fa-frown-o"></i> Failed loading data, please try again later');
+        return;
+    }
+
+    // The returned xml variable is a JavaScript representation of the provided XML,
+    // generated on the server by running PHP simple_load_xml and converting it to
+    // JavaScript by json_encode.
+    $.each(xml.forecast.tabular.time, function (i, time) {
+        // Get the times - only Safari can't parse ISO8601 so we need to do some replacements
+        var from = time['@attributes'].from + ' UTC',
+            to = time['@attributes'].to + ' UTC';
+
+        from = from.replace(/-/g, '/').replace('T', ' ');
+        from = Date.parse(from);
+        to = to.replace(/-/g, '/').replace('T', ' ');
+        to = Date.parse(to);
+
+        if (to > pointStart + 4 * 24 * 36e5) {
+            return;
+        }
+
+        // If it is more than an hour between points, show all symbols
+        if (i === 0) {
+            meteogram.resolution = to - from;
+        }
+
+        // Populate the parallel arrays
+        meteogram.symbols.push(time.symbol['@attributes']['var'].match(/[0-9]{2}[dnm]?/)[0]); // eslint-disable-line dot-notation
+        meteogram.symbolNames.push(time.symbol['@attributes'].name);
+
+        meteogram.temperatures.push({
+            x: from,
+            y: parseInt(time.temperature['@attributes'].value, 10),
+            // custom options used in the tooltip formatter
+            to: to,
+            index: i
+        });
+
+        meteogram.precipitations.push({
+            x: from,
+            y: parseFloat(time.precipitation['@attributes'].value)
+        });
+        meteogram.windDirections.push(parseFloat(time.windDirection['@attributes'].deg));
+        meteogram.windDirectionNames.push(time.windDirection['@attributes'].name);
+        meteogram.windSpeeds.push(parseFloat(time.windSpeed['@attributes'].mps));
+        meteogram.windSpeedNames.push(time.windSpeed['@attributes'].name);
+
+        meteogram.pressures.push({
+            x: from,
+            y: parseFloat(time.pressure['@attributes'].value)
+        });
+
+        if (i === 0) {
+            pointStart = (from + to) / 2;
+        }
+    });
+
+    // Smooth the line
+    this.smoothLine(this.temperatures);
+
+    // Create the chart when the data is loaded
+    this.createChart();
+};
+// End of the Meteogram protype
+
+
+
+$(function () { // On DOM ready...
+
+    // Set the hash to the yr.no URL we want to parse
+    if (!location.hash) {
+        var place = 'United_Kingdom/England/London';
+        
+        location.hash = 'https://www.yr.no/place/' + place + '/forecast_hour_by_hour.xml';
+
+    }
+
+    // Then get the XML file through Highcharts' jsonp provider, see
+    // https://github.com/highcharts/highcharts/blob/master/samples/data/jsonp.php
+    // for source code.
+    $.getJSON(
+        'https://www.highcharts.com/samples/data/jsonp.php?url=' + location.hash.substr(1) + '&callback=?',
+        function (xml) {
+            window.meteogram = new Meteogram(xml, 'weather');
+        }
+    );
+
+});
+</script>
+<script type="text/javascript">
+    // Data gathered from http://populationpyramid.net/germany/2015/
+$(function () {
+    // Age categories
+    var categories = ['0-4', '5-9', '10-14', '15-19',
+            '20-24', '25-29', '30-34', '35-39', '40-44',
+            '45-49', '50-54', '55-59', '60-64', '65-69',
+            '70-74', '75-79', '80-84', '85-89', '90-94',
+            '95-99', '100 + '];
+    $(document).ready(function () {
+        Highcharts.chart('gender', {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Population pyramid for Germany, 2015'
+            },
+            subtitle: {
+                text: 'Source: <a href="http://populationpyramid.net/germany/2015/">Population Pyramids of the World from 1950 to 2100</a>'
+            },
+            xAxis: [{
+                categories: categories,
+                reversed: false,
+                labels: {
+                    step: 1
+                }
+            }, { // mirror axis on right side
+                opposite: true,
+                reversed: false,
+                categories: categories,
+                linkedTo: 0,
+                labels: {
+                    step: 1
+                }
+            }],
+            yAxis: {
+                title: {
+                    text: null
+                },
+                labels: {
+                    formatter: function () {
+                        return Math.abs(this.value) + '%';
+                    }
+                }
+            },
+
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + ', age ' + this.point.category + '</b><br/>' +
+                        'Population: ' + Highcharts.numberFormat(Math.abs(this.point.y), 0);
+                }
+            },
+
+            series: [{
+                name: 'Male',
+                data: [-2.2, -2.2, -2.3, -2.5, -2.7, -3.1, -3.2,
+                    -3.0, -3.2, -4.3, -4.4, -3.6, -3.1, -2.4,
+                    -2.5, -2.3, -1.2, -0.6, -0.2, -0.0, -0.0]
+            }, {
+                name: 'Female',
+                data: [2.1, 2.0, 2.2, 2.4, 2.6, 3.0, 3.1, 2.9,
+                    3.1, 4.1, 4.3, 3.6, 3.4, 2.6, 2.9, 2.9,
+                    1.8, 1.2, 0.6, 0.1, 0.0]
+            }]
+        });
+    });
+
+});
+</script>    
+</body>
+
+</html>
